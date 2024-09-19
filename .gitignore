@@ -1,32 +1,41 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# 忽略所有的生成文件
+**/bin/
+**/obj/
+ 
+# 忽略NuGet下载的包
+packages/**/*
+ 
+# 忽略VS临时文件和用户设置
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+ 
+# 不忽略项目文件
+ 
+# 忽略IDE特定的文件和文件夹
+.vs/
+ 
+# 忽略NuGet缓存
+*.nuget/
+ 
+# 忽略ReSharper和其他第三方工具生成的文件
+_ReSharper*/
+*.ReSharper
+*.DotSettings
+ 
+# 忽略用户特定的文件
+*.userprefs
+ 
+# 忽略可执行文件和动态链接库
 *.exe
-*.out
-*.app
+*.dll
+ 
+# 忽略日志文件
+*.log
+ 
+# 忽略Visual Studio 2017的多目标框架
+*.vs
+ 
+# 忽略发布文件夹
+**/publish/
