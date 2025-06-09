@@ -21,8 +21,11 @@ namespace ASIO_LoudSpeaker
         {
             var drivers = AsioOut.GetDriverNames();
             asioOut = new AsioOut(drivers[0]);
-            var bufferedWaveProvider = new BufferedWaveProvider(new WaveFormat(48000, 4));
-            asioOut.InitRecordAndPlayback(bufferedWaveProvider, 2, 48000);
+            asioOut.ShowControlPanel();
+            asioOut.InputChannelOffset = Config.Default.InputChannelOffset;
+            asioOut.ChannelOffset = Config.Default.OutputChannelOffset;
+            var bufferedWaveProvider = new BufferedWaveProvider(new WaveFormat(Config.Default.OutputSampleRate, Config.Default.OutputChannelCount));
+            asioOut.InitRecordAndPlayback(bufferedWaveProvider, Config.Default.InputChannelCount, Config.Default.InputSampleRate);
             asioOut.AudioAvailable += AsioOut_AudioAvailable;
             asioOut.Play();
         }
@@ -66,13 +69,6 @@ namespace ASIO_LoudSpeaker
                     break;
             }
             byte[] buf = new byte[bufferSize];
-            //int index = 0;
-            //for (int i = 0; i < e.InputBuffers.Length; i++)
-            //{
-            //    Marshal.Copy(e.InputBuffers[i], buf, 0, bufferSize);
-            //    Marshal.Copy(buf, 0, e.OutputBuffers[index++], bufferSize);
-            //    Marshal.Copy(buf, 0, e.OutputBuffers[index++], bufferSize);
-            //}
             //分配一半的输入通道数据写入到一半的输出通道，例如输入通道1，2，输出通道1，2，3，4，则输入通道1写入输出通道1，2，输入通道2写入输出通道3，4
             int i =0,j=0;
             for (; i < e.InputBuffers.Length / 2; i++)
@@ -92,6 +88,14 @@ namespace ASIO_LoudSpeaker
                 }
             }
             e.WrittenToOutputBuffers = true;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (asioOut != null)
+            {
+                asioOut.Dispose();
+            }
         }
     }
 }
