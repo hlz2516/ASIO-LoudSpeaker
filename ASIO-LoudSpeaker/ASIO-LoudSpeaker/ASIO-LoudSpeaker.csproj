@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Audio\c1.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Audio\c1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
     <PackageReference Include="NAudio" Version="2.2.1" />
