@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ASIO_LoudSpeaker"
+        xmlns:vm="clr-namespace:ASIO_LoudSpeaker.ViewModels"
         mc:Ignorable="d"
         Title="AppSetting" Height="450" Width="800">
     <Grid>
@@ -13,10 +14,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-            <TextBlock Text="ASIO驱动" VerticalAlignment="Center" />
-            <ComboBox />
+            <TextBlock Text="ASIO驱动" VerticalAlignment="Center" Margin="0 0 10 0" />
+            <ComboBox ItemsSource="{Binding ASIODrivers}" SelectedValue="{Binding SelectedASIODriver}" MinWidth="100" />
             <Rectangle Width="200" />
-            <Button Width="120" Height="30" Content="控制面板" />
+            <Button Width="120" Height="30" Content="控制面板" Command="{Binding OpenControlPanelCommand}" />
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -36,13 +37,13 @@
                         <RowDefinition Height="4*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="输入通道偏移" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Row="0" Grid.Column="1" Height="24" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Height="24" Text="{Binding InputChannelOffset}" />
                     <TextBlock  Grid.Row="1" Grid.Column="0"
                         Text="输入通道数量" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Height="24" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Height="24" Text="{Binding InputChannelCount}" />
                     <TextBlock  Grid.Row="2" Grid.Column="0"
     Text="输入采样率" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Height="24" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Height="24" Text="{Binding InputSampleRate}" />
                 </Grid>
             </GroupBox>
             <GroupBox Header="Output" Grid.Column="1" Margin="0 0 10 10">
@@ -58,21 +59,21 @@
                         <RowDefinition Height="4*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="输出通道偏移" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Row="0" Grid.Column="1" Height="24" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Height="24" Text="{Binding OutputChannelOffset}" />
                     <TextBlock  Grid.Row="1" Grid.Column="0"
                         Text="输出通道数量" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Height="24" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Height="24" Text="{Binding OutputChannelCount}" />
                     <TextBlock  Grid.Row="2" Grid.Column="0"
     Text="输出采样率" TextAlignment="Center" VerticalAlignment="Center" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Height="24" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Height="24" Text="{Binding OutputSampleRate}" />
                 </Grid>
             </GroupBox>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right"
                     Margin="10">
-            <Button Content="保存" Width="80" Height="24" />
+            <Button Content="保存" Width="80" Height="24" Command="{Binding SaveSettingsCommand}" />
             <Rectangle Width="20" />
-            <Button Content="取消" Width="80" Height="24" />
+            <Button Content="取消" Width="80" Height="24" Command="{Binding CancelCommand}" />
         </StackPanel>
     </Grid>
 </Window>

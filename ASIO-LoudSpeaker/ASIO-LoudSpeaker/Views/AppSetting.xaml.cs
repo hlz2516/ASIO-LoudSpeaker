@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ASIO_LoudSpeaker.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,9 @@ namespace ASIO_LoudSpeaker
         public AppSetting()
         {
             InitializeComponent();
+            this.DataContext = App.Current.Services.GetService<AppSettingViewModel>();
         }
+
+        public AppSettingViewModel ViewModel => (AppSettingViewModel)this.DataContext;
     }
 }
