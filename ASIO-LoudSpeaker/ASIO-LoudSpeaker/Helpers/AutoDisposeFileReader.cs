@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASIO_LoudSpeaker.Helpers
 {
-    class AutoDisposeFileReader : ISampleProvider
+    class AutoDisposeFileReader : UniqueNameSampleProvider
     {
         private readonly AudioFileReader reader;
         private bool isDisposed;
@@ -17,7 +17,7 @@ namespace ASIO_LoudSpeaker.Helpers
             WaveFormat = reader.WaveFormat;
         }
 
-        public int Read(float[] buffer, int offset, int count)
+        public override int Read(float[] buffer, int offset, int count)
         {
             if (isDisposed)
                 return 0;
@@ -30,6 +30,6 @@ namespace ASIO_LoudSpeaker.Helpers
             return read;
         }
 
-        public WaveFormat WaveFormat { get; }
+        public override WaveFormat WaveFormat { get; }
     }
 }

@@ -40,6 +40,24 @@ namespace ASIO_LoudSpeaker.Helpers
             AddMixerInput(new AutoDisposeFileReader(input));
         }
 
+        /// <summary>
+        /// Fire and forget playback of a cached sound
+        /// </summary>
+        public void PlaySound(CachedSound sound)
+        {
+            AddMixerInput(new CachedSoundSampleProvider(sound));
+        }
+
+        public void RemoveSound()
+        {
+
+        }
+
+        public void PlaySoundRepeatedly(CachedSound sound)
+        {
+
+        }
+
         private ISampleProvider ConvertToRightChannelCount(ISampleProvider input)
         {
             if (input.WaveFormat.Channels == mixer.WaveFormat.Channels)
@@ -53,17 +71,14 @@ namespace ASIO_LoudSpeaker.Helpers
             throw new NotImplementedException("Not yet implemented this channel count conversion");
         }
 
-        /// <summary>
-        /// Fire and forget playback of a cached sound
-        /// </summary>
-        public void PlaySound(CachedSound sound)
-        {
-            AddMixerInput(new CachedSoundSampleProvider(sound));
-        }
-
         private void AddMixerInput(ISampleProvider input)
         {
             mixer.AddMixerInput(ConvertToRightChannelCount(input));
+        }
+
+        private void RemoveMixerInput(ISampleProvider input)
+        {
+            mixer.RemoveMixerInput(ConvertToRightChannelCount(input));
         }
 
         /// <summary>

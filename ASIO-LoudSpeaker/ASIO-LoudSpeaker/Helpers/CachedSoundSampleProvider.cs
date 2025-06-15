@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASIO_LoudSpeaker.Helpers
 {
-    class CachedSoundSampleProvider : ISampleProvider
+    class CachedSoundSampleProvider : UniqueNameSampleProvider
     {
         private readonly CachedSound cachedSound;
         private long position;
@@ -17,7 +17,7 @@ namespace ASIO_LoudSpeaker.Helpers
             this.cachedSound = cachedSound;
         }
 
-        public int Read(float[] buffer, int offset, int count)
+        public override int Read(float[] buffer, int offset, int count)
         {
             var availableSamples = cachedSound.AudioData.Length - position;
             var samplesToCopy = Math.Min(availableSamples, count);
@@ -26,6 +26,6 @@ namespace ASIO_LoudSpeaker.Helpers
             return (int)samplesToCopy;
         }
 
-        public WaveFormat WaveFormat => cachedSound.WaveFormat;
+        public override WaveFormat WaveFormat => cachedSound.WaveFormat;
     }
 }
